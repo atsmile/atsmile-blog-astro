@@ -6,7 +6,7 @@ import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { getBlogs } from "../lib/microcms";
 
-const { contents: posts } = await getBlogs();
+const { contents: posts } = await getBlogs({ limit: 5 });
 ---
 
 <!doctype html>
