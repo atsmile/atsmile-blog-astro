@@ -17,7 +17,7 @@ const { title, description, pubDate, heroImage } = Astro.props;
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <style>
+    <style is:global>
       main {
         width: calc(100% - 2em);
         max-width: 100%;
@@ -51,6 +51,54 @@ const { title, description, pubDate, heroImage } = Astro.props;
       .date {
         margin-bottom: 0.5em;
         color: rgb(var(--gray));
+      }
+      .prose h2,
+      .prose h3 {
+        line-height: 1.25;
+        font-weight: bold;
+        margin-bottom: 1.62em;
+      }
+      .prose h2 {
+        font-size: 24px;
+        padding: 25px;
+        background-color: rgb(var(--gray-light));
+        color: rgb(var(--black));
+      }
+      .prose h3 {
+        border-left: 7px solid #888;
+        border-right: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        font-size: 22px;
+        padding: 12px 20px;
+      }
+      .prose ol {
+        list-style-type: decimal;
+        padding-left: 1.5em;
+        margin-bottom: 1em;
+      }
+      .prose ul {
+        list-style-type: disc;
+        padding-left: 1.5em;
+        margin-bottom: 1em;
+      }
+      .prose pre {
+        background-color: rgb(var(--gray-light));
+        padding: 1em;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin-bottom: 1em;
+      }
+      .prose code {
+        background-color: rgb(var(--gray-light));
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: rgb(var(--black));
+      }
+      .prose pre code {
+        background: none;
+        padding: 0;
       }
     </style>
   </head>

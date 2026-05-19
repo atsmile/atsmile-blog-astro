@@ -19,9 +19,10 @@ export type Blog = {
   publishedAt: string;
 };
 
-export const getBlogs = async () => {
+export const getBlogs = async (queries?: { limit?: number }) => {
   return await client.getList<Blog>({
     endpoint: "blog",
+    queries,
   });
 };
 
