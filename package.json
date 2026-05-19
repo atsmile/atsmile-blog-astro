@@ -15,7 +15,14 @@
     "@astrojs/mdx": "^5.0.6",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.5",
-    "sharp": "^0.34.3"
+    "microcms-js-sdk": "^3.4.0",
+    "sharp": "^0.34.3",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

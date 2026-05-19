@@ -1,49 +1,95 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { getBlogs } from "../lib/microcms";
+
+const { contents: posts } = await getBlogs();
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1 class="text-2xl font-bold mb-3">このブログについて</h1>
+      <p class="bio">
+        フロントエンドエンジニアとして活動しています。
+        日々の開発で気づいたこと、実装したことを忘れないうちに書き留めておく場所として使っていく予定です。
+      </p>
+      <p class="bio">
+        最近はAIと対話しながら「あれは違う、これがいい」とやり取りする、ゆるめのバイブコーディングスタイルで開発しています。チームみたいな開発スタイルが気に入っています。
+      </p>
+      <p class="bio">
+        今は開発メモが中心になると思いますが、いずれは日常のことなんかも書いていけたらと思っています。更新頻度は高くないけど、大きな実装をしたときや「これは残しておきたい」と思ったときに更新していきます。
+      </p>
+      <p class="bio">よかったら気軽に読んでいってください。</p>
+
+      <h2 class="text-xl font-bold mt-8 mb-4">最新記事</h2>
+      <ul>
+        {
+          posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}/`}>
+                <h3 class="text-base font-bold mb-1">{post.title}</h3>
+                <p class="date">
+                  <FormattedDate date={new Date(post.publishedAt)} />
+                </p>
+                {post.description && (
+                  <p class="description">{post.description}</p>
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <Footer />
+  </body>
 </html>
+
+<style>
+  main {
+    width: 720px;
+    max-width: calc(100% - 2em);
+    margin: auto;
+    padding: 2em 1em;
+  }
+  .bio {
+    color: rgb(var(--gray-dark));
+    line-height: 1.8;
+    margin-bottom: 0.75em;
+    font-size: 0.95rem;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  ul li a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  ul li a:hover h3 {
+    color: rgb(var(--accent));
+  }
+  .date {
+    margin: 0 0 0.25em 0;
+    color: rgb(var(--gray));
+    font-size: 0.85rem;
+  }
+  .description {
+    margin: 0;
+    color: rgb(var(--gray-dark));
+    font-size: 0.9rem;
+  }
+</style>
